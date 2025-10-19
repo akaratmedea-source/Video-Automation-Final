@@ -1,0 +1,19 @@
+name: Run Colab Test Automation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-colab-notebook:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository Code
+      uses: actions/checkout@v4
+
+    - name: Run Colab Notebook using Colab Action
+      # استخدام الأداة التي بدأت العمل سابقاً
+      uses: wshuman/colab-action@v1 
+      with:
+        notebook: 'test_automation.ipynb' 
+        google_service_account_json: ${{ secrets.GOOGLE_CREDS }}
