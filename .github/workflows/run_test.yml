@@ -18,18 +18,18 @@ jobs:
 
     - name: Install required dependencies
       run: |
-        # تثبيت الأدوات اللازمة لتحويل وتنفيذ دفاتر Jupyter/Colab
-        pip install jupyter nbformat nbconvert google-colab
+        # تثبيت الأدوات اللازمة لتحويل وتنفيذ دفاتر Jupyter/Colab، بالإضافة إلى PyDrive2 للمصادقة على Drive
+        pip install jupyter nbformat nbconvert pydrive2
 
-    # 🛑 خطوة المصادقة الآلية: كتابة المفتاح السري في ملف مؤقت (key.json)
+    # خطوة المصادقة الآلية: كتابة المفتاح السري في ملف مؤقت (key.json)
     - name: Prepare Service Account Key File
       run: |
         echo '${{ secrets.GOOGLE_CREDS }}' > key.json
 
-    # 🛑 خطوة التنفيذ الحاسمة: تحويل الملف وتشغيله كسكريبت Python عادي
+    # خطوة التنفيذ الحاسمة: تحويل الملف وتشغيله كسكريبت Python عادي
     - name: Execute Notebook as Python Script
       run: |
         # 1. تحويل ملف .ipynb إلى ملف python عادي .py
         jupyter nbconvert --to python test_automation.ipynb
-        # 2. تشغيل الملف الناتج. سيستخدم key.json تلقائياً للمصادقة.
+        # 2. تشغيل الملف الناتج.
         python test_automation.py
