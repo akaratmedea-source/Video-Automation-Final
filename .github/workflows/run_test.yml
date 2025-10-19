@@ -1,0 +1,24 @@
+name: Run Colab Test Automation
+
+# هذا السطر يسمح لك بتشغيل المشغل يدوياً من تبويبة Actions
+on:
+  workflow_dispatch:
+
+jobs:
+  run-colab-notebook:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. جلب ملفات الكود من المستودع
+    - name: Checkout Repository Code
+      uses: actions/checkout@v4
+
+    # 2. تشغيل دفتر Colab باستخدام المفتاح السري
+    - name: Run Colab Notebook using Colab Action
+      # 🛑 الأداة الموثوقة لتشغيل Colab
+      uses: wshuman/colab-action@v1 
+      with:
+        # اسم ملف الكود الذي يجب أن يكون في الجذر
+        notebook: 'test_automation.ipynb' 
+        # اسم السر الذي يحتوي على مفتاح JSON
+        google_service_account_json: ${{ secrets.GOOGLE_CREDS }}
