@@ -1,5 +1,6 @@
-name: Run Colab Test Automation
+name: Test Colab Automation and Drive Transfer
 
+# Trigger the workflow manually from GitHub UI
 on:
   workflow_dispatch:
 
@@ -8,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository Code
+    - name: Checkout repository code
       uses: actions/checkout@v4
 
-    - name: Run Colab Notebook using Colab Action
-      # استخدام الأداة التي بدأت العمل سابقاً
-      uses: wshuman/colab-action@v1 
+    - name: Run Colab Notebook
+      uses: truedl/colab-action@v1
       with:
+        # NOTE: Ensure the notebook is in the same repository path if you haven't moved it.
         notebook: 'test_automation.ipynb' 
         google_service_account_json: ${{ secrets.GOOGLE_CREDS }}
